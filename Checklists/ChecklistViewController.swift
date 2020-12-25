@@ -7,13 +7,13 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController {
+class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
     
     var items = [ChecklistItem]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
         let item1 = ChecklistItem()
         item1.text = "Walk the dog"
         items.append(item1)
@@ -50,6 +50,18 @@ class ChecklistViewController: UITableViewController {
         cell.accessoryType = item.checked ? .checkmark : .none
     }
     
+    // MARK:- Actions
+    @IBAction func addItem(_ sender: UIBarButtonItem) {
+        let newItemIndex = items.count
+        
+        let newItem = ChecklistItem()
+        newItem.text = "I am a new row"
+        items.append(newItem)
+        
+        let newIndexPath = IndexPath(row: newItemIndex, section: 0)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
+    
     // MARK:- Table View Data Source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -78,6 +90,36 @@ class ChecklistViewController: UITableViewController {
         // deselect the row so it's not grayed out
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // remove the item from data model, i.e. items array
+        // then remove it from tableView to keep them in sync
+        items.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
+    // MARK:- Add Item View Controller Delegate
+    func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+        let newRowIndex = items.count
+        items.append(item)
+        
+        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK:- Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddItem" {
+            // setting up the delegate
+            let controller = segue.destination as! AddItemViewController
+            controller.delegate = self
+        }
+    }
+    
 }
 

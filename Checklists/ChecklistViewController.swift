@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
+class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
     
     var items = [ChecklistItem]()
 
@@ -45,9 +45,8 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     
     // sets the checkmark based on item's checked property
     func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
-        // if item's checked property is true, set the checkmark
-        // otherwise set it to .none
-        cell.accessoryType = item.checked ? .checkmark : .none
+        let label = cell.viewWithTag(1001) as! UILabel
+        label.text = item.checked ? "√" : ""
     }
     
     // MARK:- Actions
@@ -99,11 +98,13 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     }
     
     // MARK:- Add Item View Controller Delegate
-    func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+    func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
         navigationController?.popViewController(animated: true)
     }
     
-    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+    // get index of new item which will be added to array, append item to array
+    // insert that item into tableView
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
         let newRowIndex = items.count
         items.append(item)
         
@@ -112,12 +113,31 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         navigationController?.popViewController(animated: true)
     }
     
+    // find the index of edited item in items array, create a new IndexPath object
+    // find the cell that contains the item, and update existing text
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
+        if let index = items.firstIndex(of: item) {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) {
+                configureText(for: cell, with: item)
+            }
+        }
+        navigationController?.popViewController(animated: true)
+    }
+    
     // MARK:- Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddItem" {
             // setting up the delegate
-            let controller = segue.destination as! AddItemViewController
+            let controller = segue.destination as! ItemDetailViewController
             controller.delegate = self
+        } else if segue.identifier == "EditItem" {
+            let controller = segue.destination as! ItemDetailViewController
+            controller.delegate = self
+            // getting the indexPath of item that was selected
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                controller.itemToEdit = items[indexPath.row]
+            }
         }
     }
     

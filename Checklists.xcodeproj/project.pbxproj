@@ -18,6 +18,7 @@
 		42F7595425A238D000488979 /* AllListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F7595325A238D000488979 /* AllListsViewController.swift */; };
 		42F7595725A23E2C00488979 /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F7595625A23E2C00488979 /* Checklist.swift */; };
 		42F7595A25A243BD00488979 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F7595925A243BD00488979 /* ListDetailViewController.swift */; };
+		42F7595D25A28C8800488979 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F7595C25A28C8800488979 /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		42F7595325A238D000488979 /* AllListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListsViewController.swift; sourceTree = "<group>"; };
 		42F7595625A23E2C00488979 /* Checklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
 		42F7595925A243BD00488979 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
+		42F7595C25A28C8800488979 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				42F7595325A238D000488979 /* AllListsViewController.swift */,
 				42F7595625A23E2C00488979 /* Checklist.swift */,
 				42F7595925A243BD00488979 /* ListDetailViewController.swift */,
+				42F7595C25A28C8800488979 /* DataModel.swift */,
 			);
 			path = Checklists;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 				429011B62593ED7B00419212 /* ChecklistItem.swift in Sources */,
 				42F7595725A23E2C00488979 /* Checklist.swift in Sources */,
 				42F7595A25A243BD00488979 /* ListDetailViewController.swift in Sources */,
+				42F7595D25A28C8800488979 /* DataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

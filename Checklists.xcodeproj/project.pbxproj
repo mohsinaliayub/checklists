@@ -68,21 +68,45 @@
 		4290119D2593727C00419212 /* Checklists */ = {
 			isa = PBXGroup;
 			children = (
+				42CBEBA525A3A23F0080519F /* Data Models */,
+				42CBEBA425A3A22E0080519F /* View Controllers */,
+				42CBEBA325A3A2260080519F /* Resources */,
 				4290119E2593727C00419212 /* AppDelegate.swift */,
 				429011A02593727C00419212 /* SceneDelegate.swift */,
-				429011A22593727C00419212 /* ChecklistViewController.swift */,
-				429011A42593727C00419212 /* Main.storyboard */,
-				4276F0012596210B0061591C /* ItemDetailViewController.swift */,
-				429011A72593728000419212 /* Assets.xcassets */,
-				429011A92593728000419212 /* LaunchScreen.storyboard */,
 				429011AC2593728000419212 /* Info.plist */,
-				429011B52593ED7B00419212 /* ChecklistItem.swift */,
-				42F7595325A238D000488979 /* AllListsViewController.swift */,
-				42F7595625A23E2C00488979 /* Checklist.swift */,
-				42F7595925A243BD00488979 /* ListDetailViewController.swift */,
-				42F7595C25A28C8800488979 /* DataModel.swift */,
 			);
 			path = Checklists;
+			sourceTree = "<group>";
+		};
+		42CBEBA325A3A2260080519F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				429011A72593728000419212 /* Assets.xcassets */,
+				429011A92593728000419212 /* LaunchScreen.storyboard */,
+				429011A42593727C00419212 /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		42CBEBA425A3A22E0080519F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				42F7595325A238D000488979 /* AllListsViewController.swift */,
+				429011A22593727C00419212 /* ChecklistViewController.swift */,
+				4276F0012596210B0061591C /* ItemDetailViewController.swift */,
+				42F7595925A243BD00488979 /* ListDetailViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		42CBEBA525A3A23F0080519F /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				42F7595625A23E2C00488979 /* Checklist.swift */,
+				429011B52593ED7B00419212 /* ChecklistItem.swift */,
+				42F7595C25A28C8800488979 /* DataModel.swift */,
+			);
+			path = "Data Models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

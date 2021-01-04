@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate {
+class AllListsViewController: UITableViewController, UINavigationControllerDelegate, ListDetailViewControllerDelegate {
     
     let cellIdentifier = "ChecklistCell"
     var dataModel: DataModel!
@@ -17,6 +17,19 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         
         // register a reuse identifier for UITableViewCell in our table view
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // set AllListsViewController as delegate for UINavigationController
+        navigationController?.delegate = self
+        
+        let index = dataModel.indexOfSelectedChecklist
+        if index >= 0 && index < dataModel.lists.count {
+            let checklist = dataModel.lists[index]
+            performSegue(withIdentifier: "ShowChecklist", sender: checklist)
+        }
     }
 
     // MARK: - Table view Data Source
@@ -45,6 +58,9 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     // MARK:- Table View Delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // save the checklist index to UserDefaults
+        dataModel.indexOfSelectedChecklist = indexPath.row
+        
         let checklist = dataModel.lists[indexPath.row]
         performSegue(withIdentifier: "ShowChecklist", sender: checklist)
     }
@@ -59,6 +75,17 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
             controller.checklistToEdit = checklist
             
             navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
+    
+    // MARK:- Navigation Controller Delegate
+    
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        
+        // Was the back button tapped?
+        if viewController === self {
+            dataModel.indexOfSelectedChecklist = -1
         }
     }
     

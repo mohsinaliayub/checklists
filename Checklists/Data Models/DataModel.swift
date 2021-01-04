@@ -8,11 +8,44 @@
 import Foundation
 
 class DataModel {
+    
+    private let checklistIndexKey = "ChecklistIndex"
+    private let firstTimeKey = "FirstTime"
     var lists = [Checklist]()
     
+    var indexOfSelectedChecklist: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: checklistIndexKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: checklistIndexKey)
+        }
+    }
+    
     init() {
-        // load data from plist
+        // load data from plist and register defaults
         loadChecklists()
+        registerDefaults()
+        handleFirstTime()
+    }
+    
+    func registerDefaults() {
+        let dictionary: [String: Any] = [checklistIndexKey: -1, firstTimeKey: true]
+        UserDefaults.standard.register(defaults: dictionary)
+    }
+    
+    func handleFirstTime() {
+        let userDefaults = UserDefaults.standard
+        let firstTime = userDefaults.bool(forKey: firstTimeKey)
+        
+        if firstTime {
+            let checklist = Checklist(name: "List")
+            lists.append(checklist)
+            
+            indexOfSelectedChecklist = 0
+            userDefaults.set(false, forKey: firstTimeKey)
+            userDefaults.synchronize()
+        }
     }
     
     // MARK:- Data Saving

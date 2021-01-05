@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import UserNotifications
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     let dataModel = DataModel()
@@ -23,6 +24,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         else { return }
         
         controller.dataModel = dataModel
+        
+        // Notification authorization
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -53,6 +58,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
         saveData()
     }
+    
+    // MARK:- User Notification Delegate
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("Received local notification \(notification)")
+    }
+    
 
     // MARK:- Helper methods
     func saveData() {

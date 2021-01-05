@@ -22,6 +22,16 @@ class DataModel {
         }
     }
     
+    class var nextChecklistItemID: Int {
+//        get {
+        let userDefaults = UserDefaults.standard
+        let itemID = userDefaults.integer(forKey: "ChecklistItemID")
+        userDefaults.set(itemID + 1, forKey: "ChecklistItemID")
+        userDefaults.synchronize()
+        return itemID
+//        }
+    }
+    
     init() {
         // load data from plist and register defaults
         loadChecklists()
